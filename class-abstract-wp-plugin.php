@@ -10,7 +10,7 @@
  * @package  Lib\WordPress
  * @author   Mike W. Leavitt <michael.leavitt@ucf.edu>
  * @version  SVN: 1.0.0
- * @license  GNU Lesser General Public License, v3.0 (https://opensource.org/licenses/LGPL-3.0)
+ * @license  GNU General Public License, v3.0 (https://opensource.org/licenses/GPL-3.0)
  * @link     https://cah.ucf.edu/
  */
 declare(strict_types = 1);
