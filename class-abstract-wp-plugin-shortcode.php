@@ -1,6 +1,6 @@
 <?php
 /**
- * Abstract WordPress Plugin Base Class
+ * Abstract WordPress Shortcode Plugin Base Class
  *
  * Class providing some basic boilerplate for a basic WordPress plugin, with methods
  * meant to be overridden by child classes as needed to encompass specific functionality.
@@ -18,7 +18,7 @@ declare(strict_types = 1);
 
 namespace UCF\CAH\Lib\WordPress;
 
-abstract class WPShortcodePlugin
+abstract class WPShortcodePlugin extends WPPlugin
 {
     /**
      * The handle to attach scripts and other things to. Should be overridden in
