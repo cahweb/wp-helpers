@@ -2,7 +2,7 @@
 /**
  * Abstract WordPress Shortcode Plugin Base Class
  *
- * Class providing some basic boilerplate for a basic WordPress plugin, with methods
+ * Class providing some basic boilerplate for a simple WordPress plugin, with methods
  * meant to be overridden by child classes as needed to encompass specific functionality.
  *
  * PHP Version 7
