@@ -61,7 +61,7 @@ abstract class WPVueRouterPlugin extends WPVuePlugin
             return;
         }
 
-        $slug = self::$pageSlug;
+        $slug = static::$pageSlug;
 
         if (stripos($_SERVER['REQUEST_URI'], "/$slug/") !== false) {
             global $post;
@@ -93,7 +93,7 @@ abstract class WPVueRouterPlugin extends WPVuePlugin
     {
         global $post;
 
-        $slug = self::$pageSlug;
+        $slug = static::$pageSlug;
 
         if ($slug === $post->post_name
             && (is_404()
@@ -101,7 +101,7 @@ abstract class WPVueRouterPlugin extends WPVuePlugin
                 || !file_exists(get_stylesheet_directory() . "/page-$slug.php")
             )
         ) {
-            $template = self::$templateFile;
+            $template = static::$templateFile;
         }
 
         return $template;
@@ -119,7 +119,7 @@ abstract class WPVueRouterPlugin extends WPVuePlugin
     {
         global $post;
 
-        if (is_404() && self::$pageSlug === $post->post_name) {
+        if (is_404() && static::$pageSlug === $post->post_name) {
             return $post->post_title;
         }
 
@@ -132,12 +132,12 @@ abstract class WPVueRouterPlugin extends WPVuePlugin
         global $post;
 
         $data = [
-            'baseUrl' => self::getFullSlug($post)
+            'baseUrl' => static::getFullSlug($post)
         ];
 
-        self::$wpData = array_merge(self::$wpData, $data);
+        static::$wpData = array_merge(static::$wpData, $data);
 
-        return self::$wpData;
+        return static::$wpData;
     }
 
     /**
@@ -156,7 +156,7 @@ abstract class WPVueRouterPlugin extends WPVuePlugin
         if ($post->post_parent === 0) {
             return $currentSlug;
         } else {
-            return self::getFullSlug($post, $currentSlug);
+            return static::getFullSlug($post, $currentSlug);
         }
     }
 }

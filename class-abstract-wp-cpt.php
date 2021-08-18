@@ -71,7 +71,7 @@ abstract class WPCustomPostType
      */
     public static function register()
     {
-        register_post_type(self::$postTypeSlug, self::getArgs());
+        register_post_type(static::$postTypeSlug, static::getArgs());
     }
 
     /**
@@ -82,20 +82,20 @@ abstract class WPCustomPostType
      */
     protected static function getArgs(): array
     {
-        extract(self::$labels);
+        extract(static::$labels);
 
         $args = [
-            'label'               => self::wpString($singular),
-            'description'         => self::wpString(self::$postTypeDesc),
-            'labels'              => self::getLabels(),
-            'supports'            => self::getPostTypeSupports(),
-            'taxonomies'          => self::getTaxonomies(),
+            'label'               => static::wpString($singular),
+            'description'         => static::wpString(static::$postTypeDesc),
+            'labels'              => static::getLabels(),
+            'supports'            => static::getPostTypeSupports(),
+            'taxonomies'          => static::getTaxonomies(),
             'hierarchical'        => false,
             'public'              => true,
             'show_ui'             => true,
             'show_in_menu'        => true,
-            'menu_position'       => self::$menuPosition,
-            'menu_icon'           => self::$menuIcon,
+            'menu_position'       => static::$menuPosition,
+            'menu_icon'           => static::$menuIcon,
             'show_in_admin_bar'   => true,
             'show_in_nav_menus'   => true,
             'can_export'          => true,
@@ -109,7 +109,7 @@ abstract class WPCustomPostType
         ];
 
         // Turn the slug into a tag for registering a custom filter
-        $postTag = str_replace("-", "_", self::$postTypeSlug);
+        $postTag = str_replace("-", "_", static::$postTypeSlug);
 
         // Run it through a custom filter. Does nothing by default, but allows
         // a user to override the content of $args dynamically in other contexts.
@@ -128,35 +128,35 @@ abstract class WPCustomPostType
     protected static function getLabels(): array
     {
         // Destructure the labels array, for readability
-        extract(self::$labels);
+        extract(static::$labels);
 
         // Return the array of labels.
         return [
-            'name'                  => self::wpString($plural, 'Post Type General Name'),
-            'singular_name'         => self::wpString($singular, 'Post Type Singular Name'),
-            'menu_name'             => self::wpString($plural),
-            'name_admin_bar'        => self::wpString($singular),
-            'archives'              => self::wpString("$singular Archives"),
-            'parent_item_colon'     => self::wpString("Parent $singular:"),
-            'all_items'             => self::wpString("All $plural"),
-            'add_new_item'          => self::wpString("Add New $singular"),
-            'add_new'               => self::wpString("Add New"),
-            'new_item'              => self::wpString("New $singular"),
-            'edit_item'             => self::wpString("Edit $singular"),
-            'update_item'           => self::wpString("Update $singular"),
-            'view_item'             => self::wpString("View $singular"),
-            'search_items'          => self::wpString("Search $plural"),
-            'not_found'             => self::wpString("Not found"),
-            'not_found_in_trash'    => self::wpString("Not found in Trash"),
-            'featured_image'        => self::wpString("Featured Image"),
-            'set_featured_image'    => self::wpString("Set Featured Image"),
-            'remove_featured_image' => self::wpString("Remove Featured Image"),
-            'use_featured_image'    => self::wpString("Use as Featured Image"),
-            'insert_into_item'      => self::wpString("Insert into $singular"),
-            'uploaded_to_this_item' => self::wpString("Uploaded to this $singular"),
-            'items_list'            => self::wpString("$plural List"),
-            'items_list_navigation' => self::wpString("$plural List Navigation"),
-            'filter_items_list'     => self::wpString("Filter $singular list"),
+            'name'                  => static::wpString($plural, 'Post Type General Name'),
+            'singular_name'         => static::wpString($singular, 'Post Type Singular Name'),
+            'menu_name'             => static::wpString($plural),
+            'name_admin_bar'        => static::wpString($singular),
+            'archives'              => static::wpString("$singular Archives"),
+            'parent_item_colon'     => static::wpString("Parent $singular:"),
+            'all_items'             => static::wpString("All $plural"),
+            'add_new_item'          => static::wpString("Add New $singular"),
+            'add_new'               => static::wpString("Add New"),
+            'new_item'              => static::wpString("New $singular"),
+            'edit_item'             => static::wpString("Edit $singular"),
+            'update_item'           => static::wpString("Update $singular"),
+            'view_item'             => static::wpString("View $singular"),
+            'search_items'          => static::wpString("Search $plural"),
+            'not_found'             => static::wpString("Not found"),
+            'not_found_in_trash'    => static::wpString("Not found in Trash"),
+            'featured_image'        => static::wpString("Featured Image"),
+            'set_featured_image'    => static::wpString("Set Featured Image"),
+            'remove_featured_image' => static::wpString("Remove Featured Image"),
+            'use_featured_image'    => static::wpString("Use as Featured Image"),
+            'insert_into_item'      => static::wpString("Insert into $singular"),
+            'uploaded_to_this_item' => static::wpString("Uploaded to this $singular"),
+            'items_list'            => static::wpString("$plural List"),
+            'items_list_navigation' => static::wpString("$plural List Navigation"),
+            'filter_items_list'     => static::wpString("Filter $singular list"),
         ];
     }
 
@@ -186,7 +186,7 @@ abstract class WPCustomPostType
     protected static function getTaxonomies(): array
     {
         // Derive a post tag for filters from the post type slug.
-        $postTag = str_replace("-", "_", self::$postTypeSlug);
+        $postTag = str_replace("-", "_", static::$postTypeSlug);
 
         $taxonomies = [
             'category',
@@ -221,7 +221,7 @@ abstract class WPCustomPostType
     final protected static function wpString(string $text, string $context = null): string
     {
         // Grab our text domain
-        $domain = self::$labels['text_domain'];
+        $domain = static::$labels['text_domain'];
 
         // If $context isn't null, then we need to use the contextual localization function
         if (!is_null($context)) {

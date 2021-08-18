@@ -64,7 +64,7 @@ abstract class WPShortcodePlugin extends WPPlugin
         add_action('wp_enqueue_scripts', [__CLASS__, 'registerScripts'], 5, 0);
         add_action('wp_enqueue_scripts', [__CLASS__, 'maybeLoadScripts'], 10, 0);
         
-        add_shortcode(self::$shortcode, [__CLASS__, 'shortcode']);
+        add_shortcode(static::$shortcode, [__CLASS__, 'shortcode']);
     }
 
     /**
@@ -75,10 +75,10 @@ abstract class WPShortcodePlugin extends WPPlugin
      */
     public static function registerScripts()
     {
-        $uri  = self::$pluginUri  . "/js";
-        $path = self::$pluginPath . "/js";
+        $uri  = static::$pluginUri  . "/js";
+        $path = static::$pluginPath . "/js";
 
-        $handle = self::$handle;
+        $handle = static::$handle;
 
         wp_register_script(
             "$handle-script",
@@ -102,8 +102,8 @@ abstract class WPShortcodePlugin extends WPPlugin
             return;
         }
         
-        $handle = self::$handle;
-        $shortcode = self::$shortcode;
+        $handle = static::$handle;
+        $shortcode = static::$shortcode;
 
         if (stripos($post->post_content, "[$shortcode") !== false) {
             wp_enqueue_script("$handle-script");

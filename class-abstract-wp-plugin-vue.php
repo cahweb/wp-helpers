@@ -32,10 +32,10 @@ abstract class WPVuePlugin extends WPShortcodePlugin
     // Override
     public static function registerScripts()
     {
-        $uri  = self::$pluginUri  . "/dist";
-        $path = self::$pluginPath . "/dist";
+        $uri  = static::$pluginUri  . "/dist";
+        $path = static::$pluginPath . "/dist";
 
-        $handle = self::$handle;
+        $handle = static::$handle;
 
         // Register our chunk script first
         wp_register_script(
@@ -71,7 +71,7 @@ abstract class WPVuePlugin extends WPShortcodePlugin
         // Run the parent script to enqueue the scripts and styles
         parent::maybeLoadScripts();
 
-        $handle = self::$handle;
+        $handle = static::$handle;
 
         // Pass data to the front-end if the script is enqueued.
         if (wp_script_is("$handle-script")) {
@@ -81,8 +81,8 @@ abstract class WPVuePlugin extends WPShortcodePlugin
                 '_wpnonce' => wp_create_nonce($handle)
             ];
 
-            // Merge with any custom data the user has defined in self::$wpData
-            $localizeData = array_merge($baseData, self::getWpData());
+            // Merge with any custom data the user has defined in static::$wpData
+            $localizeData = array_merge($baseData, static::getWpData());
 
             // Send the data
             wp_localize_script("$handle-script", "wpData", $localizeData);
@@ -94,13 +94,13 @@ abstract class WPVuePlugin extends WPShortcodePlugin
     {
         ob_start();
         ?>
-        <div id="<?= self::$handle ?>-app"></div>
+        <div id="<?= static::$handle ?>-app"></div>
         <?php
         return ob_get_clean();
     }
 
     /**
-     * Wrapper for the self::$wpData member variable. Can be overridden in
+     * Wrapper for the static::$wpData member variable. Can be overridden in
      * subclass to create more fine-tuned, programmatic values to be passed
      * to the front-end, rather than just overriding the property itself.
      *
@@ -108,6 +108,6 @@ abstract class WPVuePlugin extends WPShortcodePlugin
      */
     protected static function getWpData(): array
     {
-        return self::$wpData;
+        return static::$wpData;
     }
 }
