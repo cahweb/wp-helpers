@@ -38,13 +38,17 @@ abstract class WPVueRouterPlugin extends WPVuePlugin
     protected static $pageSlug = "my-page-slug";
 
     // Override
-    public static function setup()
+    public static function setup(string $class = "")
     {
-        parent::setup();
+        parent::setup(__CLASS__);
 
-        add_action('template_redirect', [__CLASS__, 'handle404'], 10, 0);
-        add_action('template_include', [__CLASS__, 'setTemplate']);
-        add_action('the_title', [__CLASS__, 'changeTitle']);
+        if (empty($class)) {
+            $class = __CLASS__;
+        }
+
+        add_action('template_redirect', [$class, 'handle404'], 10, 0);
+        add_action('template_include', [$class, 'setTemplate']);
+        add_action('the_title', [$class, 'changeTitle']);
     }
 
     /**

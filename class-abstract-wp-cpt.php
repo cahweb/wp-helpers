@@ -75,6 +75,32 @@ abstract class WPCustomPostType
     }
 
     /**
+     * Provides the default functionality for register_activation_hook(), to make
+     * sure the permalink structure updates properly. Overrides in subclasses should
+     * make sure to register the post type and call flush_rewrite_rules() or call
+     * parent::activate()
+     *
+     * @return void
+     */
+    public static function activate()
+    {
+        static::register();
+        flush_rewrite_rules();
+    }
+
+    /**
+     * Provides the default functionality for register_deactivation_hook(), to make
+     * sure the permalink structure updates properly. Overrides in subclasses should
+     * make sure to call flush_rewrite_rules() or call parent::deactivate()
+     *
+     * @return void
+     */
+    public static function deactivate()
+    {
+        flush_rewrite_rules();
+    }
+
+    /**
      * Generates the arguments for registering the post type. Uses static member
      * variables which can be overridden in subclasses.
      *
@@ -162,7 +188,7 @@ abstract class WPCustomPostType
 
     /**
      * Gets an array of supported features of the post type. Meant to be easily
-     * overridden in a subclass, for the sake of felxibility.
+     * overridden in a subclass, for the sake of flexibility.
      *
      * @return array
      */

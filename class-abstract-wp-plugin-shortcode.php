@@ -59,12 +59,16 @@ abstract class WPShortcodePlugin extends WPPlugin
      *
      * @return void
      */
-    public static function setup()
+    public static function setup(string $class = "")
     {
-        add_action('wp_enqueue_scripts', [__CLASS__, 'registerScripts'], 5, 0);
-        add_action('wp_enqueue_scripts', [__CLASS__, 'maybeLoadScripts'], 10, 0);
+        if (empty($class)) {
+            $class = __CLASS__;
+        }
         
-        add_shortcode(static::$shortcode, [__CLASS__, 'shortcode']);
+        add_action('wp_enqueue_scripts', [$class, 'registerScripts'], 5, 0);
+        add_action('wp_enqueue_scripts', [$class, 'maybeLoadScripts'], 10, 0);
+        
+        add_shortcode(static::$shortcode, [$class, 'shortcode']);
     }
 
     /**

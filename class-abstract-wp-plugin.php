@@ -19,7 +19,7 @@ namespace UCF\CAH\Lib\WordPress;
 
 abstract class WPPlugin
 {
-    abstract public static function setup();
+    abstract public static function setup(string $class = '');
     abstract public static function registerScripts();
     abstract public static function maybeLoadScripts();
 }
